@@ -29,7 +29,9 @@ global.describeTest = function describeTest(parser, input, pos, expected, cb) {
   const cerr = expected === "cerr" ? cb : failCallback("cerr")
   const eok = expected === "eok" ? cb : failCallback("eok")
   const eerr = expected === "eerr" ? cb : failCallback("eerr")
-  describe(`${parser.name}("${input}", ${pos}, cok, cerr, eok, eerr)`, () =>
+  describe(`${parser.description ||
+    parser.name ||
+    "unknownParser"}("${input}", ${pos}, cok, cerr, eok, eerr)`, () =>
     parser(input, pos, cok, cerr, eok, eerr))
 }
 
