@@ -9,7 +9,10 @@
       "request": "launch",
       "name": "Mocha Tests",
       "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "useWSL": true,
       "args": [
+        "-r",
+        "src/tests",
         "-u",
         "tdd",
         "--timeout",
