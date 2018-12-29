@@ -1,4 +1,5 @@
 const assert = require("assert")
+
 describeModule("@blisp/reader/input-stream", (InputStream) => {
   const inputStream = new InputStream("foo")
   it("pos is 0", () => {
