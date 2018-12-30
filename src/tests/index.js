@@ -21,3 +21,7 @@ global.describeCall = function describeCall(fn, ...args) {
 global.itReadsTheNumber = function itReadsTheNumber(n, cb) {
   return it(`reads the number ${n}`, () => cb(n))
 }
+
+global.itReadsTheString = function itReadsTheString(s, cb) {
+  return it(`reads the string ${s}`, () => cb(s.slice(1, s.length - 1)))
+}

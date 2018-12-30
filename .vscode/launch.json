@@ -23,6 +23,26 @@
       ],
       "cwd": "${workspaceFolder}",
       "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Mocha Tests Current",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "useWSL": true,
+      "args": [
+        "--allow-uncaught",
+        "-r",
+        "src/tests",
+        "-u",
+        "tdd",
+        "--timeout",
+        "999999",
+        "--colors",
+        "'src/tests/**/read-string.spec.js'"
+      ],
+      "cwd": "${workspaceFolder}",
+      "internalConsoleOptions": "openOnSessionStart"
     }
   ]
 }
