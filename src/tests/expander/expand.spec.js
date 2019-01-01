@@ -1,3 +1,4 @@
+require("@blisp/reader/read")
 const { expect } = require("chai")
 const {
   arrayExpression,
@@ -6,29 +7,60 @@ const {
   stringLiteral,
   memberExpression,
 } = require("@babel/types")
-
-const env = {
-  memberExpression,
-}
+const syntax = require("@blisp/reader/syntax")
 
 describeModule("@blisp/expander/expand", (expand) => {
-  describe("(memberAccess console log)", () => {
-    it("expands to MemberAccess node", () => {
-      // const input = '((memberAccess console log) "foo")'
-      expect(
-        expand(
-          arrayExpression([
-            identifier("memberExpression"),
-            identifier("console"),
-            identifier("log"),
-          ]),
-          env
-        )
-      ).to.eql(memberExpression(identifier("console"), identifier("log")))
-    })
-  })
-  describe('((memberAccess console log) "foo")', () => {
-    it('expands to console.log("foo"', () => {
+  const env = {
+    consolelog() {
+      return syntax("", [
+        syntax("", Symbol.for("memberExpression")),
+        syntax("", Symbol.for("console")),
+        syntax("", Symbol.for("log")),
+      ])
+    },
+    memberExpression(form, env) {
+      return memberExpression(
+        ...form.elements.slice(1).map((arg) => expand(arg, env))
+      )
+    },
+  }
+
+  describeSyntax(
+    syntax("", [
+      syntax("", Symbol.for("memberExpression")),
+      syntax("", Symbol.for("console")),
+      syntax("", Symbol.for("log")),
+    ]),
+    (syntax) => {
+      const expected = memberExpression(
+        identifier("console"),
+        identifier("log")
+      )
+
+      it("expands to MemberAccess node", () => {
+        expect(expand(syntax, env)).to.eql(expected)
+      })
+    }
+  )
+  describeSyntax(
+    syntax("", [
+      syntax("", Symbol.for("consolelog")),
+      syntax("", Symbol.for("foo")),
+    ]),
+    (syntax) => {
+      const expected = memberExpression(
+        identifier("console"),
+        identifier("log")
+      )
+
+      it("expands to MemberAccess node", () => {
+        expect(expand(syntax, env)).to.eql(expected)
+      })
+    }
+  )
+
+  describe('((memberExpression console log) "foo")', () => {
+    it('expands to console.log("foo")', () => {
       expect(
         expand(
           arrayExpression([

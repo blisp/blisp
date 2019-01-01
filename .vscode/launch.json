@@ -39,7 +39,7 @@
         "--timeout",
         "999999",
         "--colors",
-        "'src/tests/**/read-string.spec.js'"
+        "'src/tests/**/expand.spec.js'"
       ],
       "cwd": "${workspaceFolder}",
       "internalConsoleOptions": "openOnSessionStart"

@@ -1,16 +1,9 @@
 const assert = require("assert")
 const InputStream = require("@blisp/reader/input-stream")
 const syntax = require("@blisp/reader/syntax")
-const readSymbolTable = require("@blisp/reader/read-symbol-table")
-const readTable = require("@blisp/reader/read-table")
 const { expect } = require("chai")
 
-readSymbolTable[")"] = function(_, _1, value) {
-  return Symbol.for(value)
-}
-
 describeModule("@blisp/reader/read-list", (readList) => {
-  readTable["("] = readList
   describeCall(readList, new InputStream("(foo bar)"), (readList, stream) => {
     it("reads (foo bar)", () => {
       assert.deepEqual(readList(stream, stream.peekChar()), [
