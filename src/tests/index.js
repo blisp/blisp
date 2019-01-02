@@ -1,6 +1,7 @@
 const InputStream = require("@blisp/reader/input-stream")
 const print = require("@blisp/printer/print")
 require("./reader")
+require("./es5")
 
 global.describeModule = function describeModule(mod, cb) {
   return describe(mod, () => {
@@ -9,7 +10,7 @@ global.describeModule = function describeModule(mod, cb) {
 }
 
 global.describeInput = function describeInput(input, cb) {
-  return cb(input)
+  return describe(input, () => cb(input))
 }
 
 global.describeReadInput = function describeReadInput(read, input, cb) {
