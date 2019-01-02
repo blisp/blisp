@@ -203,5 +203,63 @@ describeModule("@blisp/expander/expand", (expand) => {
         })
       }
     )
+    describeSyntax(
+      syntax("", [
+        syntax("", Symbol.for("syntaxQuote")),
+        syntax("", [
+          syntax("", Symbol.for("foo")),
+          syntax("", Symbol.for("bar")),
+        ]),
+      ]),
+      (syntax) => {
+        it("it expands to babel object expression", () => {
+          expect(expand(syntax, env)).to.eql(
+            objectExpression([
+              objectProperty(
+                identifier("type"),
+                stringLiteral("ArrayExpression")
+              ),
+              objectProperty(
+                identifier("elements"),
+                arrayExpression([
+                  objectExpression([
+                    objectProperty(
+                      identifier("type"),
+                      stringLiteral("SymbolLiteral")
+                    ),
+                    objectProperty(
+                      identifier("value"),
+                      callExpression(
+                        memberExpression(
+                          identifier("Symbol"),
+                          identifier("for")
+                        ),
+                        [stringLiteral("foo")]
+                      )
+                    ),
+                  ]),
+                  objectExpression([
+                    objectProperty(
+                      identifier("type"),
+                      stringLiteral("SymbolLiteral")
+                    ),
+                    objectProperty(
+                      identifier("value"),
+                      callExpression(
+                        memberExpression(
+                          identifier("Symbol"),
+                          identifier("for")
+                        ),
+                        [stringLiteral("bar")]
+                      )
+                    ),
+                  ]),
+                ])
+              ),
+            ])
+          )
+        })
+      }
+    )
   })
 })
