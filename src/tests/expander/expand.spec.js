@@ -166,6 +166,19 @@ describeModule("@blisp/expander/expand", (expand) => {
       }
     )
     describeSyntax(
+      syntax("", [syntax("", Symbol.for("syntaxQuote")), nullLiteral()]),
+      (syntax) => {
+        it("it expands to babel object expression", () => {
+          expect(expand(syntax, env)).to.eql(
+            objectExpression([
+              objectProperty(identifier("type"), stringLiteral("NullLiteral")),
+            ])
+          )
+        })
+      }
+    )
+
+    describeSyntax(
       syntax("", [
         syntax("", Symbol.for("syntaxQuote")),
         syntax("", Symbol.for("foo")),
