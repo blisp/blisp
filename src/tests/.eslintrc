@@ -9,6 +9,11 @@
     "itReadsString": false,
     "itReadsChar": false,
     "itEndsAtPosition": false,
-    "itErrors": false
+    "itErrors": false,
+    "describeInput": false,
+    "describeReadInput": false,
+    "describeSyntax": false,
+    "describePrintInput": false,
+    "itReadsTheString": false
   }
 }
