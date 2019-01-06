@@ -39,7 +39,7 @@
         "--timeout",
         "999999",
         "--colors",
-        "'src/tests/es5/**/*.spec.js'"
+        "'src/tests/es5/**/function.spec.js'"
       ],
       "cwd": "${workspaceFolder}",
       "internalConsoleOptions": "openOnSessionStart"
