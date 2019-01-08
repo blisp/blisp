@@ -7,8 +7,8 @@ describeModule("@blisp/reader/read-list", (readList) => {
   describeCall(readList, new InputStream("(foo bar)"), (readList, stream) => {
     it("reads (foo bar)", () => {
       assert.deepEqual(readList(stream, stream.peekChar()), [
-        syntax("", Symbol.for("foo"), 3),
-        syntax(" ", Symbol.for("bar"), 3),
+        syntax(Symbol.for("foo")),
+        syntax(Symbol.for("bar")),
       ])
     })
   })
@@ -18,15 +18,8 @@ describeModule("@blisp/reader/read-list", (readList) => {
     (readList, stream) => {
       it("reads (foo (bar baz))", () => {
         expect(readList(stream, stream.peekChar())).to.eql([
-          syntax("", Symbol.for("foo"), 3),
-          syntax(
-            " ",
-            [
-              syntax("", Symbol.for("bar"), 3),
-              syntax(" ", Symbol.for("baz"), 3),
-            ],
-            9
-          ),
+          syntax(Symbol.for("foo")),
+          syntax([syntax(Symbol.for("bar")), syntax(Symbol.for("baz"))]),
         ])
       })
     }

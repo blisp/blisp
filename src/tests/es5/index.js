@@ -1,1 +1,1 @@
-global.testEnv = {}
+global.testEnv = require("@blisp/es5")

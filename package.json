@@ -4,7 +4,7 @@
   "description": "A Lisp that compiles to javascript",
   "main": "index.js",
   "scripts": {
-    "test-current": "mocha -r src/tests 'src/tests/es5/**/function.spec.js'",
+    "test-one": "mocha -r src/tests",
     "test": "mocha -r src/tests 'src/tests/**/*.spec.js'"
   },
   "repository": {
