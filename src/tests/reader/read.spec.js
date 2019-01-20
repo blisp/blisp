@@ -1,23 +1,45 @@
 const InputStream = require("@blisp/reader/input-stream")
 const syntax = require("@blisp/reader/syntax")
 const { expect } = require("chai")
+const loc = require("@blisp/reader/loc")
+const {
+  callExpression,
+  identifier,
+  numericLiteral,
+  stringLiteral,
+} = require("@babel/types")
 
 describeModule("@blisp/reader/read", (read) => {
   describe("symbols", () => {
     describeCall(read, new InputStream(" foo"), (read, stream) => {
       it("reads the symbol foo", () => {
-        expect(read(stream)).to.eql(syntax(Symbol.for("foo")))
+        expect(read(stream)).to.eql(
+          Object.assign(
+            identifier("foo"),
+            loc(loc.position(1, 1), loc.position(1, 4), loc.position(1, 0))
+          )
+        )
       })
     })
   })
   describe("strings", () => {
     describeReadInput(read, '"foo"', (stream) => {
       it('reads "foo"', () => {
-        expect(read(stream, '"')).to.eql(syntax("foo"))
+        expect(read(stream, '"')).to.eql(
+          Object.assign(
+            stringLiteral("foo"),
+            loc(loc.position(1, 0), loc.position(1, 5), loc.position(1, 0))
+          )
+        )
       })
     })
   })
   describe("numbers", () => {
+    const syntax = (n, length = 1) =>
+      Object.assign(
+        numericLiteral(n),
+        loc(loc.position(1, 0), loc.position(1, length), loc.position(1, 0))
+      )
     describeReadInput(read, "0", (stream) => {
       itReadsTheNumber(0, (n) => {
         expect(read(stream)).to.eql(syntax(n))
@@ -70,9 +92,9 @@ describeModule("@blisp/reader/read", (read) => {
     })
     describeReadInput(read, ".0", (stream) => {
       itReadsTheNumber(0.0, (n) => {
-        expect(read(stream)).to.eql(syntax(n))
+        expect(read(stream)).to.eql(syntax(n, 2))
       })
     })
   })
-  describe("list", () => {})
+  // describe("list", () => {})
 })
