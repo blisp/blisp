@@ -1,7 +1,7 @@
 const InputStream = require("@blisp/reader/input-stream")
 const print = require("@blisp/printer/print")
+const { numericLiteral, stringLiteral } = require("@babel/types")
 require("./reader")
-require("./es5")
 
 global.describeModule = function describeModule(mod, cb) {
   return describe(mod, () => {
@@ -34,9 +34,10 @@ global.describeCall = function describeCall(fn, ...args) {
 }
 
 global.itReadsTheNumber = function itReadsTheNumber(n, cb) {
-  return it(`reads the number ${n}`, () => cb(n))
+  return it(`reads the number ${n}`, () => cb(numericLiteral(n)))
 }
 
 global.itReadsTheString = function itReadsTheString(s, cb) {
-  return it(`reads the string ${s}`, () => cb(s.slice(1, s.length - 1)))
+  return it(`reads the string ${s}`, () =>
+    cb(stringLiteral(s.slice(1, s.length - 1))))
 }

@@ -1,13 +1,7 @@
 const InputStream = require("@blisp/reader/input-stream")
-const syntax = require("@blisp/reader/syntax")
 const { expect } = require("chai")
 const loc = require("@blisp/reader/loc")
-const {
-  callExpression,
-  identifier,
-  numericLiteral,
-  stringLiteral,
-} = require("@babel/types")
+const { identifier, stringLiteral } = require("@babel/types")
 
 describeModule("@blisp/reader/read", (read) => {
   describe("symbols", () => {
@@ -37,7 +31,7 @@ describeModule("@blisp/reader/read", (read) => {
   describe("numbers", () => {
     const syntax = (n, length = 1) =>
       Object.assign(
-        numericLiteral(n),
+        n,
         loc(loc.position(1, 0), loc.position(1, length), loc.position(1, 0))
       )
     describeReadInput(read, "0", (stream) => {

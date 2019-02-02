@@ -8,6 +8,7 @@
     "describeTest": false,
     "itReadsString": false,
     "itReadsChar": false,
+    "itReadsTheNumber": false,
     "itEndsAtPosition": false,
     "itErrors": false,
     "describeInput": false,
