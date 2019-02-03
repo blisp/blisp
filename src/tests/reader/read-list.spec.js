@@ -1,11 +1,28 @@
-const assert = require("assert")
 const InputStream = require("@blisp/reader/input-stream")
-const syntax = require("@blisp/reader/syntax")
 const { expect } = require("chai")
 const { callExpression, identifier } = require("@babel/types")
 const loc = require("@blisp/reader/loc")
 
 describeModule("@blisp/reader/read-list", (readList) => {
+  describeCall(readList, new InputStream("(foo"), (readList, stream) => {
+    it("throws", () => {
+      expect(() => readList(stream, stream.peekChar())).to.throw()
+    })
+  })
+
+  describeCall(readList, new InputStream("(foo)"), (readList, stream) => {
+    it("reads (foo)", () => {
+      expect(readList(stream, stream.peekChar())).to.eql(
+        callExpression(
+          {
+            ...identifier("foo"),
+            ...loc(loc.position(1, 1), loc.position(1, 4), loc.position(1, 1)),
+          },
+          []
+        )
+      )
+    })
+  })
   describeCall(readList, new InputStream("(foo bar)"), (readList, stream) => {
     it("reads (foo bar)", () => {
       expect(readList(stream, stream.peekChar())).to.eql(
