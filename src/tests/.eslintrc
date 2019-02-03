@@ -14,7 +14,9 @@
     "describeInput": false,
     "describeReadInput": false,
     "describeSyntax": false,
+    "describeForm": false,
     "describePrintInput": false,
     "itReadsTheString": false
-  }
+  },
+  "rules": { "no-console": 0 }
 }
