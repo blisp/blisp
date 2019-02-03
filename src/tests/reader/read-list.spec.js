@@ -1,6 +1,6 @@
 const InputStream = require("@blisp/reader/input-stream")
 const { expect } = require("chai")
-const { callExpression, identifier } = require("@babel/types")
+const { callExpression, identifier, nullLiteral } = require("@babel/types")
 const loc = require("@blisp/reader/loc")
 
 describeModule("@blisp/reader/read-list", (readList) => {
@@ -9,7 +9,11 @@ describeModule("@blisp/reader/read-list", (readList) => {
       expect(() => readList(stream, stream.peekChar())).to.throw()
     })
   })
-
+  describeCall(readList, new InputStream("()"), (readList, stream) => {
+    it("reads a null literal", () => {
+      expect(readList(stream, stream.peekChar())).to.eql(nullLiteral())
+    })
+  })
   describeCall(readList, new InputStream("(foo)"), (readList, stream) => {
     it("reads (foo)", () => {
       expect(readList(stream, stream.peekChar())).to.eql(
