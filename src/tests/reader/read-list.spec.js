@@ -14,6 +14,29 @@ describeModule("@blisp/reader/read-list", (readList) => {
       expect(readList(stream, stream.peekChar())).to.eql(nullLiteral())
     })
   })
+  describeCall(readList, new InputStream("(foo ())"), (readList, stream) => {
+    it("reads a null literal", () => {
+      expect(readList(stream, stream.peekChar())).to.eql(
+        callExpression(
+          {
+            ...identifier("foo"),
+            ...loc(loc.position(1, 1), loc.position(1, 4), loc.position(1, 1)),
+          },
+          [
+            {
+              ...nullLiteral(),
+              ...loc(
+                loc.position(1, 5),
+                loc.position(1, 7),
+                loc.position(1, 4)
+              ),
+            },
+          ]
+        )
+      )
+    })
+  })
+
   describeCall(readList, new InputStream("(foo)"), (readList, stream) => {
     it("reads (foo)", () => {
       expect(readList(stream, stream.peekChar())).to.eql(

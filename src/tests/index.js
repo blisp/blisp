@@ -2,6 +2,8 @@ const InputStream = require("@blisp/reader/input-stream")
 const print = require("@blisp/printer/print")
 const { numericLiteral, stringLiteral } = require("@babel/types")
 const read = require("@blisp/reader/read")
+const chai = require("chai")
+chai.use(require("chai-exclude"))
 
 global.describeModule = function describeModule(mod, cb) {
   return describe(mod, () => {
