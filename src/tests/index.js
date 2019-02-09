@@ -40,10 +40,9 @@ global.describeForm = function describeForm(str, cb) {
 }
 
 global.itReadsTheNumber = function itReadsTheNumber(n, cb) {
-  return it(`reads the number ${n}`, () => cb(numericLiteral(n)))
+  return it(`reads the number ${n}`, () => cb(n))
 }
 
 global.itReadsTheString = function itReadsTheString(s, cb) {
-  return it(`reads the string ${s}`, () =>
-    cb(stringLiteral(s.slice(1, s.length - 1))))
+  return it(`reads the string ${s}`, () => cb(s.slice(1, s.length - 1)))
 }
