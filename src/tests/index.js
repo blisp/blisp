@@ -1,3 +1,4 @@
+require("./types")
 const InputStream = require("@blisp/reader/input-stream")
 const print = require("@blisp/printer/print")
 const { numericLiteral, stringLiteral } = require("@babel/types")

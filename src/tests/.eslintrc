@@ -16,7 +16,8 @@
     "describeSyntax": false,
     "describeForm": false,
     "describePrintInput": false,
-    "itReadsTheString": false
+    "itReadsTheString": false,
+    "itCompilesTo": false
   },
   "rules": { "no-console": 0 }
 }

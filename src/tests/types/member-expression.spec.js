@@ -1,16 +1,27 @@
-const expand = require("@blisp/expander/expand")
-const { expect } = require("chai")
+const compile = require("@blisp/compiler/compile")
+const chai = require("chai")
+const expect = chai.expect
+const { memberExpression, identifier } = require("@babel/types")
 
 describeModule("@blisp/types/member-expression", (env) => {
-  describeForm("(. console log)", (form) => {
-    it("expands to a MemberExpression node", () => {
-      expect(expand(form, env)).to.eql({
-        type: "MemberExpression",
-        object: form.arguments[0],
-        property: form.arguments[1],
-        computed: false,
-        loc: form.loc,
-      })
-    })
+  describeForm("(#%member foo bar)", (form) => {
+    itCompilesTo(
+      memberExpression(identifier("foo"), identifier("bar")),
+      (syntax) => {
+        expect(compile.call(env, form))
+          .excludingEvery("loc")
+          .to.eql(syntax)
+      }
+    )
+  })
+  describeForm("(#%member foo bar true)", (form) => {
+    itCompilesTo(
+      memberExpression(identifier("foo"), identifier("bar"), true),
+      (syntax) => {
+        expect(compile.call(env, form))
+          .excludingEvery("loc")
+          .to.eql(syntax)
+      }
+    )
   })
 })
