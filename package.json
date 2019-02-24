@@ -4,8 +4,8 @@
   "description": "A Lisp that compiles to javascript",
   "main": "index.js",
   "scripts": {
-    "test-one": "mocha -r src/tests",
-    "test": "mocha -r src/tests 'src/tests/**/*.spec.js'"
+    "test-one": "mocha -r tsconfig-paths/register -r tests",
+    "test": "mocha -r tsconfig-paths/register -r tests 'tests/**/*.spec.js'"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "prettier": "^1.14.3"
   },
   "devDependencies": {
-    "chai-exclude": "^1.0.12"
+    "chai-exclude": "^1.0.12",
+    "tsconfig-paths": "^3.8.0"
   }
 }
