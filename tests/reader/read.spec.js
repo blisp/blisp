@@ -1,28 +1,23 @@
 const InputStream = require("@blisp/reader/input-stream")
 const { expect } = require("chai")
-const loc = require("@blisp/reader/loc")
 
 describeModule("@blisp/reader/read", (read) => {
   describe("symbols", () => {
     describeCall(read, new InputStream(" foo"), (read, stream) => {
       it("reads the symbol foo", () => {
-        expect(read(stream)).to.eql(Object.assign(Symbol.for("foo")))
+        expect(read(stream).toString()).to.eql(Symbol("foo").toString())
       })
     })
   })
   describe("strings", () => {
     describeReadInput(read, '"foo"', (stream) => {
       it('reads "foo"', () => {
-        expect(read(stream, '"')).to.eql(Object.assign("foo"))
+        expect(read(stream, '"')).to.eql("foo")
       })
     })
   })
   describe("numbers", () => {
-    const syntax = (n, length = 1) =>
-      Object.assign(
-        n,
-        loc(loc.position(1, 0), loc.position(1, length), loc.position(1, 0))
-      )
+    const syntax = (n) => n
     describeReadInput(read, "0", (stream) => {
       itReadsTheNumber(0, (n) => {
         expect(read(stream)).to.eql(syntax(n))

@@ -1,4 +1,4 @@
-require("./types")
+require("./reader")
 const InputStream = require("@blisp/reader/input-stream")
 const print = require("@blisp/printer/print")
 const read = require("@blisp/reader/read")

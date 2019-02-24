@@ -6,7 +6,7 @@ const {
   numericLiteral,
   booleanLiteral,
 } = require("@babel/types")
-const resolve = require("@blisp/expander/resolve")
+const resolve = require("@blisp/e")
 
 function compile(form) {
   if (Array.isArray(form)) {

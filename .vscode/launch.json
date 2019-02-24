@@ -13,13 +13,15 @@
       "args": [
         "--allow-uncaught",
         "-r",
-        "src/tests",
+        "tsconfig-paths/register",
+        "-r",
+        "tests",
         "-u",
         "tdd",
         "--timeout",
         "999999",
         "--colors",
-        "'src/tests/**/*.spec.js'"
+        "'tests/**/*.spec.js'"
       ],
       "cwd": "${workspaceFolder}",
       "internalConsoleOptions": "openOnSessionStart"
@@ -33,7 +35,9 @@
       "args": [
         "--allow-uncaught",
         "-r",
-        "src/tests",
+        "tsconfig-paths/register",
+        "-r",
+        "tests",
         "-u",
         "tdd",
         "--timeout",
