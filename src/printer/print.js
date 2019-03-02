@@ -3,15 +3,17 @@ function print(form) {
     return `(${form.map(print).join(" ")})`
   }
   if (typeof form === "object" && !form) {
-    return null
+    return "null"
   }
-  switch (typeof form.valueOf()) {
+  switch (typeof form) {
     case "string":
-      return `"${form.valueOf()}"`
+      return `"${form}"`
     case "symbol":
-      return Symbol.keyFor(form.valueOf())
+      return form
+    case "undefined":
+      return "undefined"
     default:
-      return `${form.valueOf()}`
+      return `${form}`
   }
 }
 
