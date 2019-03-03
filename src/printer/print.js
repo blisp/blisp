@@ -1,3 +1,4 @@
+require("symbol.prototype.description").shim()
 function print(form) {
   if (Array.isArray(form)) {
     return `(${form.map(print).join(" ")})`
@@ -9,7 +10,7 @@ function print(form) {
     case "string":
       return `"${form}"`
     case "symbol":
-      return form
+      return form.description
     case "undefined":
       return "undefined"
     default:

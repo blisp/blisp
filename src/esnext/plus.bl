@@ -1,0 +1,15 @@
+(const (array expand (require "@blisp/expander/expand")))
+(const SourceMap (require "source-map"))
+
+(function plus (array form)
+  (block
+    (return
+      (new (. SourceMap 'SourceNode)
+        null
+        null
+        null
+        (array ((. expand (quote call)) this (. form 1))
+               "+"
+               ((. expand (quote call)) this (. form 2)))))))
+
+(= (. module (quote exports)) plus)

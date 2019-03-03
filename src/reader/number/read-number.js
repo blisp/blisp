@@ -7,7 +7,7 @@ const isDecimalDigit = require("./is-decimal-digit")
 const isHexDigit = require("./is-hex-digit")
 
 function readDigits(test) {
-  return (stream, char, number) => {
+  return function(stream, char, number) {
     reader = this.readTable[char]
     while (reader || test(stream)) {
       number = reader

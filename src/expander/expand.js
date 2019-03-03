@@ -1,34 +1,21 @@
-const {
-  arrayExpression,
-  objectProperty,
-  objectExpression,
-  stringLiteral,
-  numericLiteral,
-  booleanLiteral,
-  nullLiteral,
-  callExpression,
-  identifier,
-  isIdentifier,
-  memberExpression,
-} = require("@babel/types")
-const resolve = require("./resolve")
+const resolve = require("@blisp/core/resolve")
 
-function expand(form, env) {
-  switch (form.type) {
-    case "CallExpression": {
-      const first = expand(form.callee, env)
-      if (isIdentifier(first)) {
-        const macro = resolve(first.name, env)
-        if (typeof macro === "function") {
-          return macro(form, env)
-        }
-      }
-      return callExpression(first, form.arguments.map((s) => expand(s, env)))
+function expand(form) {
+  if (!Array.isArray(form)) {
+    const macro = this.env[Symbol.for(typeof form)]
+    if (typeof macro === "function") {
+      return macro.call(this, form)
     }
-    case "ObjectExpression":
-    default:
-      return form
+    return form
   }
+  const first = form[0]
+  if (typeof first === "symbol") {
+    const macro = this.env[resolve.call(this, first)]
+    if (typeof macro === "function") {
+      return macro.call(this, form)
+    }
+  }
+  return expand.call(this, [Symbol.for("call"), ...form])
 }
 
 module.exports = expand
