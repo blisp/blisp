@@ -1,0 +1,22 @@
+(#%env "./kernel")
+(=
+ (. module (quote exports))
+ (object
+   (array
+     (quote env)
+     (object
+       (array ((. Symbol (quote for)) ".") (require "./dot"))
+       (array ((. Symbol (quote for)) "=") (require "./assignment"))
+       (array ((. Symbol (quote for)) "array") (require "./array"))
+       (array ((. Symbol (quote for)) "block") (require "./block"))
+       (array ((. Symbol (quote for)) "call") (require "./call"))
+       (array ((. Symbol (quote for)) "const") (require "./const"))
+       (array ((. Symbol (quote for)) "function") (require "./function"))
+       (array ((. Symbol (quote for)) "new") (require "./new"))
+       (array ((. Symbol (quote for)) "number") (require "./number"))
+       (array ((. Symbol (quote for)) "object") (require "./object"))
+       (array ((. Symbol (quote for)) "return") (require "./return"))
+       (array ((. Symbol (quote for)) "string") (require "./string"))
+       (array ((. Symbol (quote for)) "symbol") (require "./symbol"))
+       (array ((. Symbol (quote for)) "undefined") (require "./undefined"))
+       (array ((. Symbol (quote for)) "+") (require "./plus"))))))
