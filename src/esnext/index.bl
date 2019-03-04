@@ -1,4 +1,25 @@
-(#%env "./kernel")
+(#%codegen "./kernel")
+
+(macro
+ (array
+   extendEnv
+   (function (array form)
+     (block
+       (= (. (. this (quote env)) ((. Symbol (quote for)) (. form 1)))
+          (require (. form 2)))
+       (return
+         (array
+           ((. Symbol (quote for)) "array")
+           (array
+             (array
+               ((. Symbol (quote for)) ".")
+               ((. Symbol (quote for)) "Symbol")
+               (array
+                 ((. Symbol (quote for)) "quote")
+                 ((. Symbol (quote for)) "for")))
+             (. form 1))
+           (array ((. Symbol (quote for)) "require") (. form 2))))))))
+
 (=
  (. module (quote exports))
  (object
@@ -19,4 +40,4 @@
        (array ((. Symbol (quote for)) "string") (require "./string"))
        (array ((. Symbol (quote for)) "symbol") (require "./symbol"))
        (array ((. Symbol (quote for)) "undefined") (require "./undefined"))
-       (array ((. Symbol (quote for)) "+") (require "./plus"))))))
+       (extendEnv "+" "./plus")))))

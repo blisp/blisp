@@ -4,9 +4,11 @@ const { SourceNode } = require("source-map")
 function array(form) {
   return new SourceNode(null, null, null, [
     "[",
-    ...form.slice(1).reduce((acc, subForm) => {
+    ...form.slice(1).reduce((acc, subForm, index, forms) => {
       acc.push(expand.call(this, subForm))
-      acc.push(",")
+      if (index !== forms.length - 1) {
+        acc.push(",")
+      }
       return acc
     }, []),
     "]",
